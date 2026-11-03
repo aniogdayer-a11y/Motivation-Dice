@@ -15,7 +15,7 @@ If creating the service manually: use this repo's `main` branch, leave Root Dire
 
 The server binds to Render's assigned `PORT` on `0.0.0.0`. Render provides `RENDER_EXTERNAL_URL`, which the server uses to accept its own HTTPS origin. GitHub Pages redirects to the verified live Render URL above.
 
-The Free plan sleeps after 15 idle minutes; its first request afterward can take about a minute to wake. See [Render's Free service limits](https://render.com/docs/free). Blueprint automatic deployments are off; deploy subsequent changes from the Render dashboard.
+The Free plan sleeps after 15 idle minutes; its first request afterward can take about a minute to wake. See [Render's Free service limits](https://render.com/docs/free). The Blueprint enables automatic deployments on commits to the linked GitHub branch. For an existing Blueprint created with auto-deploy disabled, sync the updated Blueprint once to apply this setting. Automatic deployments require the GitHub provider to be connected to Render.
 
 Choose your mood, choose a reason, and optionally describe what happened. Gemini prepares one encouragement in **English, Tagalog, and Taglish together**. The page shows a loading screen until all three are ready. Changing language uses the already prepared versions; Reload asks for a new set.
 

@@ -6,7 +6,7 @@ services:
     buildCommand: npm test
     startCommand: npm start
     healthCheckPath: /healthz
-    autoDeployTrigger: off
+    autoDeployTrigger: commit
     envVars:
       - key: NODE_VERSION
         value: 24.18.0
