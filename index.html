@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="Isang maliit na pause, isang bagong motivation. Made by Dayer Aniog.">
+  <title>A little motivation · Dayer</title>
+  <script>
+    try { const t = localStorage.getItem('dayer-theme'); document.documentElement.dataset.theme = t === 'dark' || t === 'light' ? t : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+  </script>
+  <link rel="stylesheet" href="style.css">
+  <script src="mood-responses.js" defer></script>
+  <script src="reasons.js" defer></script>
+  <script src="personalization.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <button class="back-button" id="change-mood" type="button" aria-label="Back to moods" title="Back to moods" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7"/></svg>
+    </button>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Switch theme">
+      Dark mode
+    </button>
+  </header>
+  <main aria-label="Motivation roller">
+    <div class="roller">
+      <section class="mood-checkin" aria-labelledby="mood-question">
+        <h1 id="mood-question" lang="en">how was your mood today?</h1>
+        <div class="mood-options" id="mood-options" role="group" aria-labelledby="mood-question" lang="en">
+          <button class="mood-option" type="button" data-mood="happy" aria-pressed="false"><span class="mood-label">Happy</span></button>
+          <button class="mood-option" type="button" data-mood="okay" aria-pressed="false"><span class="mood-label">Okay</span></button>
+          <button class="mood-option" type="button" data-mood="sad" aria-pressed="false"><span class="mood-label">Sad</span></button>
+          <button class="mood-option" type="button" data-mood="anxious" aria-pressed="false"><span class="mood-label">Anxious</span></button>
+          <button class="mood-option" type="button" data-mood="tired" aria-pressed="false"><span class="mood-label">Tired</span></button>
+          <button class="mood-option" type="button" data-mood="overwhelmed" aria-pressed="false"><span class="mood-label">Overwhelmed</span></button>
+          <button class="mood-option" type="button" data-mood="unmotivated" aria-pressed="false"><span class="mood-label">Unmotivated</span></button>
+          <button class="mood-option" type="button" data-mood="lonely" aria-pressed="false"><span class="mood-label">Lonely</span></button>
+        </div>
+      </section>
+      <form class="reason-form" id="reason-form" aria-labelledby="reason-question" hidden>
+        <h2 id="reason-question" tabindex="-1">What made you feel this way?</h2>
+        <p class="reason-hint" id="reason-hint"></p>
+        <div class="reason-options" role="group" aria-labelledby="reason-question">
+          <button type="button" data-reason="school" aria-pressed="false">School / studies</button>
+          <button type="button" data-reason="work" aria-pressed="false">Work</button>
+          <button type="button" data-reason="family" aria-pressed="false">Family</button>
+          <button type="button" data-reason="relationships" aria-pressed="false">Friends / relationships</button>
+          <button type="button" data-reason="self" aria-pressed="false">Myself</button>
+          <button type="button" data-reason="change" aria-pressed="false">A change in my life</button>
+          <button type="button" data-reason="unsure" aria-pressed="false">Not sure yet</button>
+        </div>
+        <label id="reason-label" for="reason-input">Anything you want to share? (optional)</label>
+        <textarea id="reason-input" rows="3" maxlength="300" placeholder="I feel this way because…"></textarea>
+        <div class="reason-actions">
+          <button class="continue-button" id="reason-submit" type="submit" disabled>Show my encouragement</button>
+          <button class="skip-button" id="reason-skip" type="button">Skip for now</button>
+        </div>
+      </form>
+      <div class="answer-summary" id="answer-summary" hidden>
+        <p class="shared-reason" id="shared-reason" hidden></p>
+        <button class="skip-button" id="edit-reason" type="button">Edit my answer</button>
+      </div>
+      <div class="categories" id="motivation-languages" role="group" aria-label="Motivation language" hidden>
+        <button class="category" type="button" data-category="taglish" aria-pressed="true">Taglish</button>
+        <button class="category" type="button" data-category="english" aria-pressed="false">English</button>
+        <button class="category" type="button" data-category="tagalog" aria-pressed="false">Tagalog</button>
+      </div>
+      <section class="quote-card" id="motivation-card" aria-label="A little encouragement for your mood" hidden>
+        <div class="quote-stage" id="quote-stage">
+          <p id="motivation" aria-live="polite" aria-atomic="true"></p>
+        </div>
+      </section>
+      <button class="reload" id="reload" type="button" aria-label="Another response for this mood" title="Another response for this mood" hidden>
+        Reload
+      </button>
+    </div>
+    <noscript>Enable JavaScript to roll your motivations.</noscript>
+  </main>
+  <footer>made by: <span>dayer aniog</span></footer>
+</body>
+</html>

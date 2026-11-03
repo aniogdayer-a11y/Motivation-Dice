@@ -1,0 +1,9 @@
+{
+  "name": "motivation-dice",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mood-based encouragement in Taglish, English, and Tagalog, made by Dayer Aniog.",
+  "scripts": {
+    "test": "node tests/verify.cjs"
+  }
+}
