@@ -1,6 +1,7 @@
 (() => {
   'use strict';
   const byId = id => document.getElementById(id);
+  const staticHosting = location.hostname.endsWith('.github.io');
   const languages = ['taglish', 'english', 'tagalog'];
   const quote = byId('motivation');
   const card = byId('motivation-card');
@@ -43,7 +44,7 @@
     reload.hidden = view !== 'response';
     byId('motivation-languages').hidden = view !== 'response';
     byId('answer-summary').hidden = ['moods', 'reason'].includes(view);
-    byId('try-ai').hidden = view !== 'response' || !savedMode;
+    byId('try-ai').hidden = view !== 'response' || !savedMode || staticHosting;
     card.setAttribute('aria-busy', String(view === 'loading'));
     back.setAttribute('aria-label', view === 'reason' ? 'Back to moods' : 'Back to your answer');
     back.title = back.getAttribute('aria-label');
@@ -57,7 +58,9 @@
       button.setAttribute('aria-pressed', String(button.dataset.reason === activeReason));
     });
     reasonQuestion.textContent = copy.question;
-    byId('reason-hint').textContent = copy.hint;
+    byId('reason-hint').textContent = staticHosting
+      ? 'Choose a topic for saved encouragement. Your optional note stays in this browser and does not change the saved message.'
+      : copy.hint;
     byId('reason-label').textContent = copy.label;
     reasonInput.placeholder = copy.placeholder;
     reasonSubmit.textContent = copy.submit;
@@ -84,6 +87,7 @@
 
   async function prepareAI() {
     if (!activeMood || view === 'loading') return;
+    if (staticHosting) { prepareSaved(); return; }
     cancelRequest();
     const version = requestVersion;
     const previous = savedMode ? '' : bundle?.english || '';

@@ -59,3 +59,7 @@ node tools/browser-check.mjs
 It intercepts the AI endpoint with synthetic fixtures to check loading, language switching, errors, cancellation, saved fallback, mobile layout, and dark mode without calling Gemini.
 
 This repository contains the local Node server and website source. GitHub Pages cannot run the Gemini backend. Run locally using the steps above; publishing the repository does not deploy a working AI website.
+
+## GitHub Pages
+
+The root entry redirects to `dist/`. On GitHub Pages, the app uses labeled saved messages without calling the local-only API. AI remains available through the Node server; public AI hosting is pending configuration.
