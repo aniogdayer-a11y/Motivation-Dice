@@ -113,6 +113,9 @@ function checkRequest(req, publicOrigin) {
   try { host = new URL('http://' + req.headers.host); } catch { throw new AppError(403, 'LOCAL_ONLY', 'This server accepts localhost requests only.'); }
   const hosted = publicOrigin && host.host === new URL(publicOrigin).host;
   if (!hosted && !['localhost', '127.0.0.1', '[::1]'].includes(host.hostname)) throw new AppError(403, 'HOST_REJECTED', 'Open the app using its website address.');
+  // Public reads must work when a shared link or redirect starts on another site.
+  // Generation is POST-only and still requires the app's own origin below.
+  if (req.method === 'GET' || req.method === 'HEAD') return;
   const expectedOrigin = hosted ? publicOrigin : host.origin;
   if ((req.headers.origin && req.headers.origin !== expectedOrigin)
     || req.headers['sec-fetch-site'] === 'cross-site') throw new AppError(403, 'ORIGIN_REJECTED', 'Open the app using its website address.');

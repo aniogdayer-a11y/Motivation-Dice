@@ -76,6 +76,31 @@ test('Render health checks need no key or Gemini request, but generation explain
   });
 });
 
+test('shared links and GitHub redirects can load the public page without allowing cross-site generation', async () => {
+  let calls = 0;
+  await withServer({ publicOrigin: 'https://motivation-test.onrender.com', fetchImpl: async () => {
+    calls++; return Response.json(geminiOutput(messages));
+  } }, async base => {
+    const navigation = { 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'document',
+      Referer: 'https://aniogdayer-a11y.github.io/Motivation-Dice/' };
+    const page = await hostedRequest(base, '/', navigation);
+    assert.equal(page.status, 200);
+    assert.ok(page.text.includes('mood-options'));
+    const fromMessenger = { ...navigation, Origin: 'https://www.facebook.com' };
+    assert.equal((await hostedRequest(base, '/', fromMessenger)).status, 200);
+    for (const file of ['/app.js', '/style.css']) {
+      assert.equal((await hostedRequest(base, file, fromMessenger)).status, 200);
+    }
+    assert.equal((await hostedRequest(base, '/.env', navigation)).status, 404);
+    assert.equal((await hostedRequest(base, '/', { ...navigation, Host: 'other.onrender.com' })).status, 403);
+    assert.equal((await hostedRequest(base, '/api/motivation', fromMessenger, input)).status, 403);
+    assert.equal(calls, 0);
+    const ownOrigin = { Origin: 'https://motivation-test.onrender.com', 'Sec-Fetch-Site': 'same-origin' };
+    assert.equal((await hostedRequest(base, '/api/motivation', ownOrigin, input)).status, 200);
+    assert.equal(calls, 1);
+  });
+});
+
 test('input limits and prompt preserve the selected context as data', () => {
   assert.throws(() => validateInput({ mood: 'invalid' }));
   assert.throws(() => validateInput({ ...input, reason: '__proto__' }));
