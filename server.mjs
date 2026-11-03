@@ -108,20 +108,32 @@ async function readJson(req) {
   try { return JSON.parse(body); } catch { throw new AppError(400, 'INVALID_JSON', 'The request could not be read. Please try again.'); }
 }
 
-function checkLocalRequest(req) {
+function checkRequest(req, publicOrigin) {
   let host;
   try { host = new URL('http://' + req.headers.host); } catch { throw new AppError(403, 'LOCAL_ONLY', 'This server accepts localhost requests only.'); }
-  if (!['localhost', '127.0.0.1', '[::1]'].includes(host.hostname)) throw new AppError(403, 'LOCAL_ONLY', 'This server accepts localhost requests only.');
-  if ((req.headers.origin && req.headers.origin !== host.origin)
-    || req.headers['sec-fetch-site'] === 'cross-site') throw new AppError(403, 'ORIGIN_REJECTED', 'Open the app from its localhost address.');
+  const hosted = publicOrigin && host.host === new URL(publicOrigin).host;
+  if (!hosted && !['localhost', '127.0.0.1', '[::1]'].includes(host.hostname)) throw new AppError(403, 'HOST_REJECTED', 'Open the app using its website address.');
+  const expectedOrigin = hosted ? publicOrigin : host.origin;
+  if ((req.headers.origin && req.headers.origin !== expectedOrigin)
+    || req.headers['sec-fetch-site'] === 'cross-site') throw new AppError(403, 'ORIGIN_REJECTED', 'Open the app using its website address.');
 }
 
-export function createApp({ fetchImpl = globalThis.fetch, configProvider = readConfig, timeoutMs = 45000 } = {}) {
+export function createApp({ fetchImpl = globalThis.fetch, configProvider = readConfig, timeoutMs = 45000,
+  publicOrigin = process.env.RENDER_EXTERNAL_URL || '' } = {}) {
+  if (publicOrigin) {
+    const url = new URL(publicOrigin);
+    if (url.protocol !== 'https:' || url.username || url.password || url.pathname !== '/' || url.search || url.hash) throw new Error('RENDER_EXTERNAL_URL must be an HTTPS website origin.');
+    publicOrigin = url.origin;
+  }
   let activeRequests = 0;
   return http.createServer(async (req, res) => {
     try {
-      checkLocalRequest(req);
+      checkRequest(req, publicOrigin);
       const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+      if (pathname === '/healthz' && req.method === 'GET') {
+        sendJson(res, 200, { status: 'ok' });
+        return;
+      }
       if (pathname === '/api/status' && req.method === 'GET') {
         const config = await configProvider();
         sendJson(res, 200, { provider: 'gemini', configured: Boolean(config.apiKey) });
@@ -130,8 +142,10 @@ export function createApp({ fetchImpl = globalThis.fetch, configProvider = readC
       if (pathname === '/api/motivation' && req.method === 'POST') {
         const input = validateInput(await readJson(req));
         const { apiKey, model } = await configProvider();
-        if (!apiKey || /^(?:paste|your|replace|ilagay)[_ -]/i.test(apiKey)) throw new AppError(503, 'KEY_MISSING', 'Gemini is not connected yet. Add GEMINI_API_KEY to the local .env file, save it, then try again.');
-        if (/[\r\n]/.test(apiKey) || !/^[a-zA-Z0-9._-]+$/.test(model)) throw new AppError(503, 'CONFIG_ERROR', 'Check GEMINI_API_KEY and GEMINI_MODEL in the local .env file.');
+        if (!apiKey || /^(?:paste|your|replace|ilagay)[_ -]/i.test(apiKey)) throw new AppError(503, 'KEY_MISSING', publicOrigin
+          ? 'Gemini is not connected yet. The site owner needs to add GEMINI_API_KEY in the Render environment settings.'
+          : 'Gemini is not connected yet. Add GEMINI_API_KEY to the local .env file, save it, then try again.');
+        if (/[\r\n]/.test(apiKey) || !/^[a-zA-Z0-9._-]+$/.test(model)) throw new AppError(503, 'CONFIG_ERROR', 'The site owner needs to check the Gemini key and model settings.');
         if (activeRequests >= 2) throw new AppError(429, 'BUSY', 'A message is already being prepared. Please wait a moment and try again.');
         activeRequests++;
         const controller = new AbortController();
@@ -149,7 +163,7 @@ export function createApp({ fetchImpl = globalThis.fetch, configProvider = readC
             // Never relay upstream errors: they can contain request data or credentials.
             if (upstream.status === 401 || upstream.status === 403) throw new AppError(502, 'KEY_REJECTED', 'Gemini could not authorize the request. Check your API key and project access, then try again.');
             if (upstream.status === 429) throw new AppError(429, 'QUOTA_LIMIT', 'Gemini has reached a rate or quota limit. Wait a little and try again, or use saved messages.');
-            if (upstream.status === 404) throw new AppError(502, 'MODEL_UNAVAILABLE', 'The configured Gemini model is unavailable. Check GEMINI_MODEL in your local .env file.');
+            if (upstream.status === 404) throw new AppError(502, 'MODEL_UNAVAILABLE', 'The configured Gemini model is unavailable. The site owner needs to check GEMINI_MODEL.');
             if (upstream.status === 400) throw new AppError(502, 'GEMINI_REQUEST_REJECTED', 'Gemini rejected this request. Check your key and configured model, then try again.');
             throw new AppError(502, 'GEMINI_UNAVAILABLE', 'Gemini is unavailable right now. Try again in a moment, or use saved messages.');
           }
@@ -158,7 +172,7 @@ export function createApp({ fetchImpl = globalThis.fetch, configProvider = readC
         } catch (error) {
           if (controller.signal.aborted) throw new AppError(504, 'TIMEOUT', 'This is taking longer than expected. Please try again, or use saved messages.');
           if (error instanceof AppError) throw error;
-          throw new AppError(502, 'NETWORK_ERROR', 'The local server could not reach Gemini. Check your connection and try again.');
+          throw new AppError(502, 'NETWORK_ERROR', 'The server could not reach Gemini. Please try again in a moment.');
         } finally {
           clearTimeout(timeout);
           res.removeListener('close', onClose);
@@ -180,7 +194,7 @@ export function createApp({ fetchImpl = globalThis.fetch, configProvider = readC
       res.end(req.method === 'HEAD' ? undefined : file);
     } catch (error) {
       if (res.destroyed || res.writableEnded) return;
-      const safe = error instanceof AppError ? error : new AppError(500, 'SERVER_ERROR', 'The local server encountered a problem. Please try again.');
+      const safe = error instanceof AppError ? error : new AppError(500, 'SERVER_ERROR', 'The server encountered a problem. Please try again.');
       sendJson(res, safe.status, { error: { code: safe.code, message: safe.message } });
     }
   });
@@ -194,8 +208,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     console.error(error.code === 'EADDRINUSE' ? `Port ${config.port} is in use. Stop the old localhost server first.` : 'The local server could not start.');
     process.exitCode = 1;
   });
-  server.listen(config.port, '127.0.0.1', () => {
-    console.log(`Motivation roller: http://localhost:${config.port}`);
-    console.log('Gemini setup: add GEMINI_API_KEY to .env. Changes are picked up on the next request.');
+  server.listen(config.port, process.env.RENDER ? '0.0.0.0' : '127.0.0.1', () => {
+    console.log(`Motivation roller: ${process.env.RENDER_EXTERNAL_URL || `http://localhost:${config.port}`}`);
+    console.log(process.env.RENDER ? 'Gemini uses the Render environment settings.' : 'Gemini setup: add GEMINI_API_KEY to .env. Changes are picked up on the next request.');
   });
 }

@@ -25,6 +25,57 @@ const post = (base, body = input, extra = {}) => fetch(base + '/api/motivation',
   method: 'POST', headers: { 'Content-Type': 'application/json', ...extra.headers }, body: JSON.stringify(body), signal: extra.signal
 });
 
+function hostedRequest(base, pathname, headers = {}, body) {
+  return new Promise((resolve, reject) => {
+    const request = http.request(base + pathname, {
+      method: body ? 'POST' : 'GET',
+      headers: { Host: 'motivation-test.onrender.com', ...(body ? { 'Content-Type': 'application/json' } : {}), ...headers }
+    }, response => {
+      let text = '';
+      response.setEncoding('utf8');
+      response.on('data', chunk => { text += chunk; });
+      response.on('end', () => resolve({ status: response.statusCode, text }));
+    });
+    request.on('error', reject);
+    request.end(body ? JSON.stringify(body) : undefined);
+  });
+}
+
+test('Render HTTPS origin serves the app and AI while rejecting foreign hosts and origins', async () => {
+  let calls = 0;
+  await withServer({ publicOrigin: 'https://motivation-test.onrender.com/', fetchImpl: async () => {
+    calls++; return Response.json(geminiOutput(messages));
+  } }, async base => {
+    const page = await hostedRequest(base, '/');
+    assert.equal(page.status, 200);
+    assert.ok(page.text.includes('mood-options'));
+    const response = await hostedRequest(base, '/api/motivation', { Origin: 'https://motivation-test.onrender.com', 'Sec-Fetch-Site': 'same-origin' }, input);
+    assert.equal(response.status, 200);
+    assert.deepEqual(JSON.parse(response.text).messages, messages);
+    assert.equal((await hostedRequest(base, '/api/motivation', { Origin: 'https://other.onrender.com' }, input)).status, 403);
+    assert.equal((await hostedRequest(base, '/api/motivation', { 'Sec-Fetch-Site': 'cross-site' }, input)).status, 403);
+    assert.equal((await hostedRequest(base, '/', { Host: 'other.onrender.com', 'X-Forwarded-Host': 'motivation-test.onrender.com' })).status, 403);
+    assert.equal((await hostedRequest(base, '/.env')).status, 404);
+    assert.equal(calls, 1);
+  });
+  assert.throws(() => createApp({ publicOrigin: 'http://example.com' }));
+  assert.throws(() => createApp({ publicOrigin: 'https://example.com/path' }));
+});
+
+test('Render health checks need no key or Gemini request, but generation explains missing hosted setup', async () => {
+  await withServer({ publicOrigin: 'https://motivation-test.onrender.com',
+    configProvider: async () => ({ ...config, apiKey: '' }),
+    fetchImpl: async () => { assert.fail('Health and missing-key requests must not call Gemini'); }
+  }, async base => {
+    const health = await hostedRequest(base, '/healthz');
+    assert.equal(health.status, 200);
+    assert.deepEqual(JSON.parse(health.text), { status: 'ok' });
+    const response = await hostedRequest(base, '/api/motivation', {}, input);
+    assert.equal(response.status, 503);
+    assert.match(JSON.parse(response.text).error.message, /Render environment/);
+  });
+});
+
 test('input limits and prompt preserve the selected context as data', () => {
   assert.throws(() => validateInput({ mood: 'invalid' }));
   assert.throws(() => validateInput({ ...input, reason: '__proto__' }));

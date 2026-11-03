@@ -1,4 +1,19 @@
-# Motivation roller — local Gemini integration
+# Motivation Dice — Gemini motivation roller
+
+[Deploy to Render](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2Faniogdayer-a11y%2FMotivation-Dice)
+
+## Run online on Render
+
+1. Open **Deploy to Render** above and sign in to your Render account.
+2. Review the `motivation-dice` **Web Service** on the **Free** plan. The included `render.yaml` supplies the build, start, health check, and Node settings.
+3. Enter your new Gemini key in the **GEMINI_API_KEY** secret field. It is kept in Render's environment settings, never in GitHub or browser code.
+4. Deploy, then open the actual `https://…onrender.com` URL shown in your Render dashboard. The app and `/api/motivation` run together at that address.
+
+If creating the service manually: use this repo's `main` branch, leave Root Directory empty, choose Node, set Build Command to `npm test`, Start Command to `npm start`, Health Check Path to `/healthz`, and add `GEMINI_API_KEY`, `GEMINI_MODEL=gemini-3.5-flash-lite`, and `NODE_VERSION=24.18.0` in Environment.
+
+The server binds to Render's assigned `PORT` on `0.0.0.0`. Render provides `RENDER_EXTERNAL_URL`, which the server uses to accept its own HTTPS origin. GitHub Pages continues to offer saved messages until it is pointed at a verified live Render URL.
+
+The Free plan sleeps after 15 idle minutes; its first request afterward can take about a minute to wake. See [Render's Free service limits](https://render.com/docs/free). Blueprint automatic deployments are off; deploy subsequent changes from the Render dashboard.
 
 Choose your mood, choose a reason, and optionally describe what happened. Gemini prepares one encouragement in **English, Tagalog, and Taglish together**. The page shows a loading screen until all three are ready. Changing language uses the already prepared versions; Reload asks for a new set.
 
@@ -58,7 +73,7 @@ node tools/browser-check.mjs
 
 It intercepts the AI endpoint with synthetic fixtures to check loading, language switching, errors, cancellation, saved fallback, mobile layout, and dark mode without calling Gemini.
 
-This repository contains the local Node server and website source. GitHub Pages cannot run the Gemini backend. Run locally using the steps above; publishing the repository does not deploy a working AI website.
+This repository contains the Node server and website source for localhost and Render. GitHub Pages cannot run the Gemini backend; the online AI app must use the Render Web Service URL.
 
 ## GitHub Pages
 

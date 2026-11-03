@@ -121,7 +121,7 @@
     } catch (error) {
       if (version !== requestVersion || signal.aborted) return;
       errorMessage.textContent = error instanceof TypeError || error instanceof SyntaxError
-        ? 'The local server could not be reached. Make sure it is running, then try again.'
+        ? 'The server could not be reached. Please try again in a moment.'
         : error.message;
       view = 'error';
       render();
