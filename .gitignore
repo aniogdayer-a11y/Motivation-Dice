@@ -1,8 +1,7 @@
+.openai/local/
 node_modules/
-*.log
-.DS_Store
-Thumbs.db
-.browser-check/
-.openai/
-preview-*.png
 *.tar.gz
+*.png
+.env
+.env.*
+!.env.example

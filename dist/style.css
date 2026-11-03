@@ -41,6 +41,13 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 
 .skip-button:hover{color:var(--ink)}
 .answer-summary{width:100%;text-align:center}
 .shared-reason{margin:0 auto 8px;max-width:540px;font-size:14px;line-height:1.6;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}
+.generation-panel{width:100%;padding:46px 32px;border:1px solid var(--line);border-radius:18px;background:var(--card);text-align:center}
+.generation-panel h2{margin:0 0 15px;font:400 27px/1.35 Georgia,serif;text-wrap:balance}
+.generation-panel p{margin:0 auto;max-width:440px;font-size:14px;line-height:1.7;color:var(--muted)}
+.loading-track{position:relative;overflow:hidden;height:3px;width:180px;max-width:100%;margin:30px auto 0;border-radius:999px;background:var(--line)}
+.loading-track span{position:absolute;inset:0 auto 0 0;width:45%;background:var(--accent);border-radius:inherit;animation:loading-slide 1.5s ease-in-out infinite alternate}
+@keyframes loading-slide{from{transform:translateX(-30%)}to{transform:translateX(155%)}}
+.response-source{margin:0 0 22px;font-size:10px;line-height:1.5;letter-spacing:.7px;color:var(--muted);text-align:center}
 .quote-card{position:relative;isolation:isolate;width:100%;min-height:365px;padding:42px 52px 28px;border-radius:18px;border:1px solid var(--line);background:var(--card);box-shadow:0 16px 50px -22px var(--shadow);display:flex;flex-direction:column;align-items:center;transition:background-color .35s,border-color .35s;overflow:hidden}
 .quote-card::after{content:"";position:absolute;z-index:-1;width:260px;height:260px;border:1px solid var(--line);border-radius:50%;right:-178px;bottom:-178px;box-shadow:0 0 0 22px var(--card),0 0 0 23px var(--line),0 0 0 45px var(--card),0 0 0 46px var(--line);opacity:.6}
 .quote-stage{display:flex;flex-direction:column;flex:1;align-items:center;justify-content:center;width:100%;min-height:174px;transition:opacity .18s,transform .18s}
@@ -56,3 +63,4 @@ noscript{position:absolute;bottom:0;text-align:center;font-size:13px}
 @media(max-width:600px){header{height:76px;padding:0 24px}main{padding:24px 22px 38px}.mood-options{grid-template-columns:repeat(2,minmax(0,1fr))}.mood-option{min-height:60px;padding:14px 8px}.quote-card{min-height:345px;padding:30px 24px 26px;border-radius:15px}.quote-stage{min-height:180px}#motivation{font-size:23px;letter-spacing:-.3px}.roller{gap:24px}footer{padding-bottom:24px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media(max-width:600px){.reason-form{padding:24px 18px}.reason-form h2{font-size:23px}.reason-actions{gap:6px}.reason-options{gap:7px}.reason-options button{padding:9px 12px}}
+@media(max-width:600px){.generation-panel{padding:36px 22px}.generation-panel h2{font-size:25px}}

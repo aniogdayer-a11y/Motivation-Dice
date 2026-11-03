@@ -6,7 +6,7 @@
       school: [
         'With school as part of your happiness, notice the learning, effort, or connection that made today meaningful. You can celebrate before setting another goal.',
         'With studies on your mind, one manageable task can give an ordinary day some direction. There is no need to fill every free moment with schoolwork.',
-        'If something at school has hurt or disappointed you, it deserves a little room. A grade or a difficult school day cannot describe everything you are capable of.',
+        'If something at school has hurt or disappointed you, it deserves a little room. A difficult experience at school cannot describe everything you are capable of.',
         'When school is making you anxious, separate the next real task from all the outcomes you are imagining. Ask a teacher or classmate about the part that feels unclear.',
         'Schoolwork can ask a lot when your energy is already low. Choose the most essential part, take a pause, and ask what can reasonably wait.',
         'When school feels like too much, list the actual deadlines and choose one small part to start. You can ask for help deciding what needs attention first.',
@@ -28,7 +28,7 @@
         'With family on your mind, consider whether you want some company or a little space today. Either need can fit an ordinary, quiet day.',
         'Sadness involving family can feel especially close to the heart. You can acknowledge the hurt and choose a trusted person to talk with without needing to resolve everything today.',
         'If family matters are making you anxious, focus on one conversation or action that is actually yours to take. Other people’s reactions are not entirely yours to control.',
-        'If family responsibilities are part of your tiredness, consider one thing someone else could share. Caring for them can include being honest about when you need a break.',
+        'Family matters can take energy, whether you need help, company, or some space. Choose one need you can express today without taking on every family concern at once.',
         'When family needs feel overwhelming, say what you can realistically give and where you need help. Having limits does not erase your care for them.',
         'If family concerns are making it hard to get going, start with one manageable responsibility. You do not need to carry every expectation before taking care of your own day.',
         'Feeling lonely in your family does not make the feeling less real. If it feels comfortable, tell someone what kind of company or listening you would appreciate.'
@@ -37,7 +37,7 @@
         'If a friend or someone close made you happy, let them know what you valued. You can enjoy the connection without needing a special occasion to express it.',
         'With a friendship or relationship on your mind, a simple check-in can be enough today. Connection does not always need an exciting plan or a long conversation.',
         'When another person is part of your sadness, you can care about them and still recognize your own hurt. Give yourself time to decide what you need before starting a difficult conversation.',
-        'If someone’s response is making you anxious, avoid treating a guess as a confirmed answer. When appropriate, ask clearly rather than trying to read every silence.',
+        'If you are anxious about a friendship or relationship, separate what you know from what you are guessing. When appropriate, ask for clarity instead of deciding what another person must be thinking.',
         'If a friendship or relationship is leaving you tired, you can ask for a pause. Being caring does not require being available for every conversation at every moment.',
         'When a relationship feels overwhelming, focus on one concern at a time. You can state a need or a boundary without solving the entire relationship in one sitting.',
         'If a relationship concern is taking your motivation, choose one small action that looks after you. You can return to the conversation when you have more room for it.',
@@ -78,7 +78,7 @@
       school: [
         'Kung school ang kasama sa saya mo, pansinin ang learning, effort, o connection na naging meaningful today. Puwede kang mag-celebrate bago mag-set ng panibagong goal.',
         'Kung studies ang nasa isip mo, one manageable task can give today some direction. Hindi kailangang punuin ng schoolwork ang lahat ng free time mo.',
-        'Kung may nangyari sa school na nakasakit o nakadismaya, bigyan iyon ng kaunting space. Isang grade o mahirap na school day ay hindi buong sukatan ng kaya mo.',
+        'Kung may nangyari sa school na nakasakit o nakadismaya, bigyan iyon ng kaunting space. Isang mahirap na experience sa school ay hindi buong sukatan ng kaya mo.',
         'Kung school ang nagpapakaba, ihiwalay muna ang next actual task sa lahat ng imagined outcomes. Puwedeng humingi ng linaw sa teacher o kaklase tungkol sa bahaging hindi mo pa sure.',
         'Kapag pagod ka na, schoolwork can ask for more energy than you have. Piliin ang pinaka-kailangan, mag-pause, at tingnan kung ano ang puwedeng maghintay.',
         'Kung overwhelming ang school ngayon, ilista ang actual deadlines at pumili ng isang maliit na parte. Puwede kang humingi ng help para malaman kung ano talaga ang dapat unahin.',
@@ -100,7 +100,7 @@
         'Kung family ang nasa isip mo, check kung company o sariling space ang gusto mo today. Puwedeng alinman doon ang bagay sa tahimik na araw.',
         'Kapag family ang kasama sa lungkot, puwedeng malapit talaga sa puso ang sakit. You can acknowledge it at lumapit sa trusted person without fixing everything today.',
         'Kung family matters ang nagpapakaba, focus sa isang conversation o action na part mo talaga. Hindi lahat ng reaction ng iba ay responsibility mong kontrolin.',
-        'Kung family responsibilities ang kasama sa pagod mo, tingnan kung may isang bagay na puwedeng may makihati. Caring can include being honest kapag kailangan mo ng break.',
+        'Family matters can take energy, sa emotions man o sa mga gawain. Piliin kung help, company, o sariling space ang kailangan mong maipahayag ngayon, without carrying every family concern at once.',
         'Kung overwhelming ang needs ng family, sabihin kung ano ang kaya mong ibigay at saan ka kailangan ng help. Hindi nabubura ang care mo dahil may limits ka.',
         'Kung family concerns ang kumukuha ng gana mo, isang manageable responsibility lang muna. Hindi mo kailangang buhatin lahat ng expectations bago alagaan ang sarili mong araw.',
         'Puwedeng lonely ka sa family, at totoo pa rin ang feeling na iyon. Kung komportable, sabihin kung anong company o pakikinig ang gusto mong matanggap.'
@@ -109,7 +109,7 @@
         'Kung friend o taong malapit sa’yo ang nagpasaya, let them know what you valued. Hindi kailangan ng special occasion para ma-appreciate ang connection.',
         'Kung friendship o relationship ang nasa isip mo, a simple check-in can be enough today. Hindi laging kailangan ng exciting na lakad o mahabang usapan.',
         'Kung ibang tao ang kasama sa lungkot mo, puwede mo siyang mahalagahan habang kinikilala ang sarili mong hurt. Give yourself time para malaman ang needs mo bago sa mahirap na conversation.',
-        'Kung response ng isang tao ang nagpapakaba, huwag munang gawing confirmed answer ang hula. Kung appropriate, ask clearly kaysa basahin ang bawat silence.',
+        'Kung kinakabahan ka tungkol sa friendship o relationship, ihiwalay ang alam mo sa hula. Kung appropriate, ask for clarity kaysa mag-decide agad kung ano ang iniisip ng ibang tao.',
         'Kung nakakapagod ang isang friendship o relationship ngayon, puwede kang humingi ng pause. Hindi kailangan ng availability sa bawat usapan para masabing caring ka.',
         'Kung overwhelming ang relationship, isang concern at a time muna. Puwedeng magsabi ng need o boundary without solving the entire relationship in one sitting.',
         'Kung relationship concern ang kumukuha ng motivation mo, pumili ng isang small action na aalaga sa’yo. Puwede kang bumalik sa conversation kapag may mas maluwag ka nang space.',
@@ -150,7 +150,7 @@
       school: [
         'Kung pag-aaral ang kasama sa saya mo, pansinin ang natutuhan, pagsisikap, o ugnayang naging mahalaga ngayon. Maaari kang magdiwang bago magtakda ng panibagong hangarin.',
         'Kung pag-aaral ang nasa isip mo, isang kayang gawain ay makapagbibigay ng direksiyon sa araw. Hindi kailangang punuin ng pag-aaral ang lahat ng malayang oras.',
-        'Kung may nangyari sa paaralan na nakasakit o nakadismaya, bigyan iyon ng puwang. Isang marka o mahirap na araw sa paaralan ay hindi buong sukatan ng kakayahan mo.',
+        'Kung may nangyari sa paaralan na nakasakit o nakadismaya, bigyan iyon ng puwang. Isang mahirap na karanasan sa paaralan ay hindi buong sukatan ng kakayahan mo.',
         'Kung pag-aaral ang nagpapakaba, ihiwalay ang susunod na tunay na gawain sa mga kalalabasang iniisip mo pa lamang. Maaaring humingi ng paglilinaw sa guro o kaklase.',
         'Maaaring humingi ng maraming lakas ang pag-aaral kapag pagod ka na. Piliin ang pinaka-kailangan, huminto sandali, at tingnan kung ano ang maaari pang maghintay.',
         'Kung napakabigat ng pag-aaral ngayon, itala ang mga takdang araw at pumili ng isang munting bahagi. Maaari kang humingi ng tulong sa pagpili ng dapat unahin.',
@@ -172,7 +172,7 @@
         'Kung pamilya ang nasa isip mo, pansinin kung kasama o sariling puwang ang gusto mo ngayon. Maaaring alinman doon ang bagay sa payak na araw.',
         'Kapag pamilya ang kasama sa lungkot, maaaring malapit sa puso ang sakit. Maaari mong kilalanin iyon at lumapit sa pinagkakatiwalaan nang hindi inaayos ang lahat agad.',
         'Kung usaping pampamilya ang nagpapakaba, ituon ang pansin sa isang kilos o usapang bahagi mo talaga. Hindi lahat ng tugon ng iba ay hawak mong baguhin.',
-        'Kung tungkulin sa pamilya ang kasama sa pagod mo, tingnan kung may isang bagay na maaaring may makibahagi. Kasama sa pagmamalasakit ang pagiging tapat kapag kailangan mo ng pahinga.',
+        'Maaaring kumuha ng lakas ang usaping pampamilya, sa damdamin man o sa mga gawain. Piliin kung tulong, kasama, o sariling puwang ang kailangan mong maipahayag ngayon nang hindi sinasalo ang lahat ng alalahanin.',
         'Kung napakabigat ng mga pangangailangan ng pamilya, sabihin ang makatotohanan mong maibibigay at kung saan mo kailangan ng tulong. Hindi nawawala ang malasakit mo dahil may hangganan ka.',
         'Kung usaping pampamilya ang kumukuha ng gana mo, isang kayang tungkulin lang muna. Hindi kailangang dalhin ang bawat inaasahan bago alagaan ang sarili mong araw.',
         'Maaari kang mangulila sa loob ng pamilya, at totoo pa rin ang damdaming iyon. Kung maginhawa para sa iyo, sabihin ang uri ng kasama o pakikinig na kailangan mo.'
@@ -181,7 +181,7 @@
         'Kung kaibigan o taong malapit sa iyo ang nagpasaya, ipaalam kung ano ang pinahalagahan mo. Hindi kailangan ng natatanging okasyon para kilalanin ang ugnayan.',
         'Kung kaibigan o ugnayan ang nasa isip mo, maaaring sapat muna ang simpleng pangangamusta. Hindi laging kailangan ng kapana-panabik na lakad o mahabang usapan.',
         'Kung ibang tao ang kasama sa lungkot mo, maaari mo siyang pahalagahan habang kinikilala ang sariling sakit. Bigyan ang sarili ng panahon upang malaman ang kailangan mo bago sa mahirap na usapan.',
-        'Kung tugon ng isang tao ang nagpapakaba, huwag munang ituring na tiyak na sagot ang hula. Kung angkop, magtanong nang malinaw sa halip na bigyan agad ng kahulugan ang bawat katahimikan.',
+        'Kung kinakabahan ka tungkol sa pagkakaibigan o ugnayan, ihiwalay ang alam mo sa hula. Kung angkop, humingi ng paglilinaw sa halip na pagpasyahan agad kung ano ang iniisip ng ibang tao.',
         'Kung nakakapagod ang isang pagkakaibigan o ugnayan ngayon, maaari kang humingi ng paghinto. Hindi kailangang laging handa sa bawat usapan para masabing may malasakit ka.',
         'Kung napakabigat ng isang ugnayan, isang usapin lang muna ang harapin. Maaaring magsabi ng pangangailangan o hangganan nang hindi inaayos ang buong ugnayan sa iisang pag-uusap.',
         'Kung usapin sa isang ugnayan ang kumukuha ng gana mo, pumili ng isang munting kilos na mag-aalaga sa iyo. Maaari kang bumalik sa usapan kapag may mas maluwag ka nang panahon.',
@@ -220,34 +220,23 @@
     }
   };
 
-  const rules = {
-    school: /\b(?:school|stud(?:y|ies|ying)|exam\w*|quiz\w*|assignment\w*|homework|class(?:es|mate)?|teacher|college|grades?|thesis|pag-aaral|paaralan|aralin|guro|marka|eskwela)\b/gi,
-    work: /\b(?:work|job|office|boss|coworker|colleague|shift|client|salary|sweldo|trabaho|opisina)\b/gi,
-    family: /\b(?:family|parents?|mother|father|mom|mum|dad|siblings?|brother|sister|pamilya|magulang|nanay|tatay|kapatid|mama|papa)\b/gi,
-    relationships: /\b(?:friends?|friendship|relationship|partner|boyfriend|girlfriend|breakup|break-up|kaibigan|barkada|jowa|kasintahan|nobyo|nobya)\b/gi,
-    self: /\b(?:self-esteem|confidence|self-doubt|insecure|worthless|sarili|kumpiyansa|walang kwenta)\b/gi,
-    change: /\b(?:moving|moved|relocat\w*|transition|new beginning|lumipat|bagong simula|pagbabago)\b/gi
-  };
-
-  function resolve(reason, ownWords) {
-    // Explicit choices always win, including "Not sure yet".
-    if (reason && Object.hasOwn(messages.english, reason)) return { reason, inferred: false };
-    const text = String(ownWords || '').normalize('NFKC').toLowerCase();
-    const matches = Object.entries(rules).filter(([, pattern]) => (text.match(pattern) || []).length > 0);
-    // Do not guess when a story names multiple topics or explicitly denies one.
-    if (matches.length !== 1 || /\b(?:not about|not because of|not related to|isn't about|hindi dahil sa|hindi tungkol sa)\b/.test(text)) return { reason: null, inferred: false };
-    return { reason: matches[0][0], inferred: true };
+  function resolve(reason) {
+    // A subjective note must not silently replace the person's own choice.
+    return { reason: reason && Object.hasOwn(messages.english, reason) ? reason : null };
   }
 
-  function build(language, mood, reason, ownWords) {
-    const match = resolve(reason, ownWords);
+  function build(language, mood, reason) {
+    const match = resolve(reason);
     const base = window.MOTIVATIONS[language][mood];
     if (!match.reason) return { ...match, responses: base };
     const advice = messages[language][match.reason][order.indexOf(mood)];
-    const responses = base.map(response => {
+    const closings = window.MOOD_CLOSINGS[language][mood];
+    const responses = base.map((response, index) => {
       const split = response.search(/[.!?]\s/);
-      if (split < 0) return response + ' ' + advice;
-      return response.slice(0, split + 1) + ' ' + advice + ' ' + response.slice(split + 2);
+      const opening = split < 0 ? response : response.slice(0, split + 1);
+      // Keep the topic-specific advice central. The ending stays about the mood,
+      // rather than introducing another situation from the general response bank.
+      return opening + ' ' + advice + ' ' + closings[index % closings.length];
     });
     return { ...match, responses };
   }

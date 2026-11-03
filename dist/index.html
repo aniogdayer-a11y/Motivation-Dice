@@ -11,6 +11,7 @@
   </script>
   <link rel="stylesheet" href="style.css">
   <script src="mood-responses.js" defer></script>
+  <script src="response-closings.js" defer></script>
   <script src="reasons.js" defer></script>
   <script src="personalization.js" defer></script>
   <script src="app.js" defer></script>
@@ -62,12 +63,26 @@
         <p class="shared-reason" id="shared-reason" hidden></p>
         <button class="skip-button" id="edit-reason" type="button">Edit my answer</button>
       </div>
+      <section class="generation-panel" id="ai-loading" role="status" aria-live="polite" tabindex="-1" hidden>
+        <h2>Preparing a little encouragement…</h2>
+        <p>Getting your English, Tagalog, and Taglish versions ready.</p>
+        <div class="loading-track" aria-hidden="true"><span></span></div>
+      </section>
+      <section class="generation-panel" id="ai-error" role="alert" hidden>
+        <h2>Couldn’t prepare your message</h2>
+        <p id="ai-error-message"></p>
+        <div class="reason-actions">
+          <button class="continue-button" id="ai-retry" type="button">Try again</button>
+          <button class="skip-button" id="use-saved" type="button">Use saved messages</button>
+        </div>
+      </section>
       <div class="categories" id="motivation-languages" role="group" aria-label="Motivation language" hidden>
         <button class="category" type="button" data-category="taglish" aria-pressed="true">Taglish</button>
         <button class="category" type="button" data-category="english" aria-pressed="false">English</button>
         <button class="category" type="button" data-category="tagalog" aria-pressed="false">Tagalog</button>
       </div>
-      <section class="quote-card" id="motivation-card" aria-label="A little encouragement for your mood" hidden>
+      <section class="quote-card" id="motivation-card" aria-label="A little encouragement for your mood" tabindex="-1" hidden>
+        <p class="response-source" id="response-source"></p>
         <div class="quote-stage" id="quote-stage">
           <p id="motivation" aria-live="polite" aria-atomic="true"></p>
         </div>
@@ -75,6 +90,7 @@
       <button class="reload" id="reload" type="button" aria-label="Another response for this mood" title="Another response for this mood" hidden>
         Reload
       </button>
+      <button class="skip-button" id="try-ai" type="button" hidden>Try AI again</button>
     </div>
     <noscript>Enable JavaScript to roll your motivations.</noscript>
   </main>

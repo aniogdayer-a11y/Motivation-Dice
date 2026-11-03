@@ -1,7 +1,7 @@
 window.REASON_COPY = {
   "english": {
     "question": "What made you feel this way?",
-    "hint": "Choose what feels closest, or tell it in your own words.",
+    "hint": "Your mood, topic, and optional note are sent to Gemini to prepare your message.",
     "label": "Anything you want to share? (optional)",
     "placeholder": "I feel this way because…",
     "submit": "Show my encouragement",

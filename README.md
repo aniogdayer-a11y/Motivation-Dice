@@ -1,53 +1,61 @@
-# Motivation Dice
+# Motivation roller — local Gemini integration
 
-A personal motivation roller made by **Dayer Aniog**. Choose your mood, optionally share why, and get encouragement that brings both into the same message.
+Choose your mood, choose a reason, and optionally describe what happened. Gemini prepares one encouragement in **English, Tagalog, and Taglish together**. The page shows a loading screen until all three are ready. Changing language uses the already prepared versions; Reload asks for a new set.
 
-## Features
+Questions, choices, and guides stay in English. The language buttons affect only the motivation.
 
-- Eight moods: Happy, Okay, Sad, Anxious, Tired, Overwhelmed, Unmotivated, and Lonely.
-- Optional reason choices and a short explanation in your own words.
-- Motivations in Taglish, English, or Tagalog; questions and guides stay in English.
-- 240 base responses, combined with guidance specific to each mood and reason.
-- Shuffled response cycles with separate history for each mood, reason, and language.
-- Light/dark mode and a layout that adapts to phones and desktop screens.
-- Back navigation that keeps your answer when returning to the reason step.
+## Add your key
 
-Free-text matching recognizes a small set of common English and Filipino topic words. An explicit reason choice takes priority. Unclear or mixed topics get mood-based encouragement without guessing a cause.
+1. Create a Gemini API key in [Google AI Studio](https://aistudio.google.com/apikey).
+2. Open `.env` in this folder, next to `server.mjs`. Copy `.env.example` to `.env` first; your private `.env` is not included in this repository.
+3. Fill in the key:
 
-## Run locally
+   ```env
+   GEMINI_API_KEY=your_actual_key_here
+   GEMINI_MODEL=gemini-3.5-flash-lite
+   PORT=8000
+   ```
 
-Open `index.html` directly in a browser, or serve this folder:
+4. Save the file. The running server reads the key and model again on the next generation request, so there is no need to restart after adding or changing the key.
+
+The key stays on the local server. `.env` is ignored by Git and cannot be downloaded through the website. Do not put the key in `dist/`, browser code, or chat.
+
+The default model is [Gemini 3.5 Flash-Lite](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite). You can change `GEMINI_MODEL` if your project uses another compatible Gemini text model. Model access, quota, and billing depend on your Google project.
+
+## Start
+
+Use Node.js 22 or later. There are no packages to install.
 
 ```sh
-python -m http.server 8000 --bind 127.0.0.1
+npm start
 ```
 
-Then visit <http://localhost:8000>.
+Visit <http://localhost:8000>. Use this Node server for the AI version; a static Python server cannot provide the API endpoint. If port 8000 is occupied, stop the older server or change `PORT` and restart.
 
-The app uses plain HTML, CSS, and JavaScript. No installation, build step, or API key is needed.
+## Behavior
+
+- One server request generates all three equivalent language versions with a structured JSON response.
+- The mood and topic are the main context. The optional note is sent to Gemini to add nuance.
+- Back cancels a pending request and preserves your answer when returning to the reason step.
+- AI-generated messages stay in browser memory; the app does not put them or personal notes in local storage.
+- The local server does not log notes, generated messages, or keys.
+- An unavailable key, quota limit, timeout, or incomplete response shows a clear retry option.
+- **Use saved messages** is an explicit fallback. These are labeled **Saved message** and use the existing local, non-repeating message pools. **Try AI again** returns to Gemini generation.
 
 ## Verify
-
-With Node.js installed:
 
 ```sh
 npm test
 ```
 
-The checks cover the mood/reason flow, response matching, non-repeating cycles, language behavior, Back navigation, and unavailable or corrupted browser storage.
+The tests use simulated Gemini responses and never use your live key. They cover input validation, three-language output, key privacy, secret-file protection, local-only requests, upstream failures, timeout, and saved message coverage.
 
-## Privacy
+The Windows browser check uses installed Google Chrome:
 
-Personal explanations stay in memory and are cleared on refresh. The app makes no API requests. Language, theme, and shuffled response history are stored in the browser when storage is available. The mood question is asked again on each visit.
+```sh
+node tools/browser-check.mjs
+```
 
-## Files
+It intercepts the AI endpoint with synthetic fixtures to check loading, language switching, errors, cancellation, saved fallback, mobile layout, and dark mode without calling Gemini.
 
-| File | Purpose |
-| --- | --- |
-| `index.html` | Page structure and controls |
-| `style.css` | Responsive light and dark themes |
-| `app.js` | Navigation, choices, and response history |
-| `mood-responses.js` | Base encouragement for each mood and language |
-| `reasons.js` | English questions, choices, and guide text |
-| `personalization.js` | Mood/reason guidance and cautious topic matching |
-| `tests/verify.cjs` | Functional checks without dependencies |
+This repository contains the local Node server and website source. GitHub Pages cannot run the Gemini backend. Run locally using the steps above; publishing the repository does not deploy a working AI website.
