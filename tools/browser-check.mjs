@@ -128,7 +128,7 @@ try {
   mode = 'success';
   await evaluate("document.getElementById('ai-retry').click()");
   await waitFor("!document.getElementById('motivation-card').hidden");
-  assert.equal(await evaluate("document.getElementById('response-source').textContent"), 'AI-generated · All 3 languages ready');
+  assert.equal(await evaluate("document.getElementById('response-source').hidden"), true);
 
   mode = 'malformed';
   await evaluate("document.getElementById('reload').click()");

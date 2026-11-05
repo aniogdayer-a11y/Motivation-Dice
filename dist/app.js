@@ -73,7 +73,8 @@
     if (view === 'response' && bundle) {
       quote.lang = activeCategory === 'english' ? 'en' : 'fil';
       quote.textContent = bundle[activeCategory];
-      byId('response-source').textContent = savedMode ? 'Saved message' : 'AI-generated · All 3 languages ready';
+      byId('response-source').textContent = savedMode ? 'Saved message' : '';
+      byId('response-source').hidden = !savedMode;
     } else {
       quote.textContent = '';
     }
